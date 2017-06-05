@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
+# https://docs.djangoproject.com/en/1.11/topics/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -23,10 +24,11 @@ SECRET_KEY = 'ayp4!+b__l=8@ib9&d2o%3fji6*_1-cag2$np($w)y@r-eg535'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+# If you set DEBUG to False, you also need to properly set the ALLOWED_HOSTS setting.
 ALLOWED_HOSTS = []
 
 # Application definition
+# The migrate command will only run migrations for apps in INSTALLED_APPS.
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -36,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog.apps.BlogConfig',
+    # To include the app in our project, we need to add a reference to its configuration class in the INSTALLED_APPS
+    # setting.
+    'polls.apps.PollsConfig',
 ]
 
 MIDDLEWARE = [
@@ -106,9 +111,15 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'zh-Hans'
 
+# Default: 'America/Chicago'
+# https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+
 TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
+
+# specifies if localized formatting of data will be enabled by default or not. If this is set to True, e.g. Django
+# will display numbers and dates using the format of the current locale.
 
 USE_L10N = True
 

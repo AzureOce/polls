@@ -17,6 +17,13 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 urlpatterns = [
+    # You should always use include() when you include other URL patterns. admin.site.urls is the only exception to
+    # this. Note that these regular expressions do not search GET and POST parameters, or the domain name. For
+    # example, in a request to https://www.example.com/myapp/, the URLconf will look for myapp/. In a request to
+    # https://www.example.com/myapp/?page=3, the URLconf will also look for myapp/.
+
+    # these regular expressions are compiled the first time the URLconf module is loaded.
     url(r'^admin/', admin.site.urls),
-    url(r'^blog/', include('blog.urls'))
+    url(r'^blog/', include('blog.urls')),
+    url(r'^polls/', include('polls.urls')),
 ]
