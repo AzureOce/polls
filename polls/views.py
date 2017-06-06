@@ -6,6 +6,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.template import loader
 from .models import Question, Choice
 from django.urls import reverse
+from django.views import generic
 
 
 # Create your views here.
@@ -55,3 +56,37 @@ def vote(request, question_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.This tip isn’t specific to Django; it’s just good Web development practice.
         return HttpResponseRedirect(reverse('polls:result', args=(question.id,)))
+
+
+# Amend views
+class IndexView(generic.ListView):
+    """
+    display a list of objects the ListView generic view uses a default template called <app name>/<model
+    name>_list.html; we use template_name to tell ListView to use our existing "polls/index.html" template.
+    """
+
+    template_name = 'polls/index.html'
+    context_object_name = 'latest_question_list'
+
+    def get_queryset(self):
+        """
+        Return the latest five published Question.
+        """
+        return Question.objects.order_by("-pub_date")[:5]
+
+
+class DetailView(generic.DetailView):
+    """
+    display a detail page for a particular type of object. The DetailView generic view expects the primary key value
+    captured from the URL to be called "pk", so we’ve changed question_id to pk for the generic views.
+    the DetailView generic view uses a template called <app name>/<model name>_detail.html.
+    """
+    template_name = 'polls/detail.html'
+    context_object_name = 'question'
+    model = Question
+
+
+class ResultView(generic.DetailView):
+    model = Question
+    context_object_name = 'question'
+    template_name = 'polls/result.html'

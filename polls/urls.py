@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from .views import index, detail, vote, results
+from .views import IndexView, DetailView, ResultView
 
 # The tutorial project has just one app, polls. In real Django projects, there might be five, ten, twenty apps or
 # more. How does Django differentiate the URL names between them? For example, the polls app has a detail view,
@@ -11,8 +12,8 @@ from .views import index, detail, vote, results
 app_name = 'polls'
 
 urlpatterns = [
-    url(r'^$', view=index, name='index'),
-    url(r'^(?P<question_id>[0-9]+)/$', view=detail, name='detail'),
+    url(r'^$', view=IndexView.as_view(), name='index'),
+    url(r'^(?P<pk>[0-9]+)/$', view=DetailView.as_view(), name='detail'),
     url(r'^(?P<question_id>[0-9]+)/vote/$', view=vote, name='vote'),
-    url(r'^(?P<question_id>[0-9]+)/results/$', view=results, name='result'),
+    url(r'^(?P<pk>[0-9]+)/results/$', view=ResultView.as_view(), name='result'),
 ]
