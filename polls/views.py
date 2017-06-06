@@ -29,13 +29,20 @@ def detail(request, question_id):
 
 
 def results(request, question_id):
-    return HttpResponse("You are look result for %s" % question_id)
+    question = get_object_or_404(Question, pk=question_id)
+    return render(request, 'polls/result.html', context={
+        'question': question,
+    })
 
 
 def vote(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     try:
+        # request.POST is a dictionary-like object that lets you access submitted data by key name.
+        # request.POST values are always strings.
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
+    # request.POST['choice'] will raise KeyError if choice wasn’t provided in POST data. The above code checks for
+    # KeyError and redisplays the question form with an error message if choice isn’t given.
     except(KeyError, Choice.DoesNotExist):
         return render(request, 'polls/detail.html', context={
             'question': question,
@@ -44,4 +51,7 @@ def vote(request, question_id):
     else:
         selected_choice.votes += 1
         selected_choice.save()
+        # Always return an HttpResponseRedirect after successfully dealing
+        # with POST data. This prevents data from being posted twice if a
+        # user hits the Back button.This tip isn’t specific to Django; it’s just good Web development practice.
         return HttpResponseRedirect(reverse('polls:result', args=(question.id,)))
