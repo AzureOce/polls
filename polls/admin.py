@@ -18,11 +18,19 @@ class QuestionAdmin(admin.ModelAdmin):
     # order is an important usability detail.
     # fields = ['pub_date', 'question_text']
 
+
+
     fieldsets = [
         (None, {'fields': ['question_text']}),
         ('Date information', {'fields': ['pub_date']}),
     ]
     inlines = [ChoiceInline]
+
+    # By default, Django displays the str() of each object. But sometimes it’d be more helpful if we could display
+    # individual fields. To do that, use the list_display admin option, which is a tuple of field names to display,
+    # as columns, on the change list page for the object:
+    list_display = ('question_text', 'pub_date', 'was_published_recently')
+    search_fields = ['question_text']
 
 
 admin.site.register(Question, QuestionAdmin)
