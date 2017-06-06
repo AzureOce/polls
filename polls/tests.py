@@ -12,6 +12,11 @@ from polls.models import Question
 
 # Create your tests here.
 
+# a separate TestClass for each model or view
+# a separate test method for each set of conditions you want to test
+# test method names that describe their function
+# If you can’t test a piece of code, it usually means that code should be refactored or removed.
+
 class QuestionMethodTest(TestCase):
     """
     python manage.py test polls looked for tests in the polls application
