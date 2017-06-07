@@ -18,8 +18,6 @@ class QuestionAdmin(admin.ModelAdmin):
     # order is an important usability detail.
     # fields = ['pub_date', 'question_text']
 
-
-
     fieldsets = [
         (None, {'fields': ['question_text']}),
         ('Date information', {'fields': ['pub_date']}),
