@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pricate</title>
+</head>
+<body>
+
+
+{% for foo in temp_list %}
+    {#    Django不支持退出循环操作。 如果我们想退出循环，可以改变正在迭代的变量，让其仅仅包含需要迭代的项目。 同理，Django也不支持continue语句，我们无法让当前迭代操作跳回到循环头部。#}
+
+    {#    forloop.counter 总是一个表示当前循环的执行次数的整数计数器。 这个计数器是从1开始的，所以在第一次循环时 forloop.counter 将会被设置为1。#}
+    <p>{{ forloop.counter }}:{{ foo }}</p>
+    {#    forloop.counter0 类似于 forloop.counter ，但是它是从0计数的。 第一次执行循环时这个变量会被设置为0。#}
+    {#    forloop.revcounter 是表示循环中剩余项的整型变量。 在循环初次执行时 forloop.revcounter 将被设置为序列中项的总数。 最后一次循环执行中，这个变量将被置1。#}
+    {#    forloop.revcounter0 类似于 forloop.revcounter ，但它以0做为结束索引。 在第一次执行循环时，该变量会被置为序列的项的个数减1。#}
+    {#    forloop.first 是一个布尔值，如果该迭代是第一次执行，那么它被置为True #}
+    {#    forloop.last 是一个布尔值；在最后一次执行循环时被置为True#}
+
+
+    {% for city in city_list %}
+        {#        forloop.parentloop 是一个指向当前循环的上一级循环的 forloop 对象的引用（在嵌套循环的情况下）#}
+        {#        forloop 变量仅仅能够在循环中使用。 在模板解析器碰到{% endfor %}标签后，forloop就不可访问了。#}
+        <p>{{ forloop.parentloop }}</p>
+    {% endfor %}
+
+
+{% empty %}
+    {#    与下面的写法等价#}
+    {#    % if athlete_list %}#}
+    {#    {% for athlete in athlete_list %}#}
+    {#        <p>{{ athlete.name }}</p>#}
+    {#    {% endfor %}#}
+    {#{% else %}#}
+    {#    <p>There are no athletes. Only computer programmers.</p>#}
+    {#{% endif %}#}
+    <p>There are no athletes. Only computer programmers.</p>
+{% endfor %}
+
+
+
+
+{#    {% ifequal %} 标签比较两个值，当他们相等时，显示在 {% ifequal %} 和 {% endifequal %} 之中所有的值。#}
+{#    只有模板变量，字符串，整数和小数可以作为 {% ifequal %} 标签的参数。#}
+{#    {% ifequal variable 1 %}#}
+{#    {% ifequal variable 1.23 %}#}
+{#    {% ifequal variable 'foo' %}#}
+{#    {% ifequal variable "foo" %}#}
+
+{% ifequal user currentUser %}
+    <h1>Welcome!</h1>
+    {#    {% if %} 类似， {% ifequal %} 支持可选的 {% else%} 标签#}
+{% else %}
+    <p>No News Here</p>
+{% endifequal %}
+
+
+{% comment %}
+模板过滤器是在变量被显示前修改它的值的一个简单方法。 过滤器使用管道字符
+过滤管道可以被* 套接* ，既是说，一个过滤器管道的输出又可以作为下一个管道的输入，如此下去。
+{% endcomment %}
+{{ name|lower|first|upper }}
+
+{% comment %}
+有些过滤器有参数。 过滤器的参数跟随冒号之后并且总是以双引号包含。
+
+addslashes : 添加反斜杠到任何反斜杠、单引号或者双引号前面。 这在处理包含JavaScript的文本时是非常有用的。
+date : 按指定的格式字符串参数格式化 date 或者 datetime 对象
+
+length : 返回变量的长度。 对于列表，这个参数将返回列表元素的个数。 对于字符串，这个参数将返回字符串中字符的个数。 你可以对列表或者字符串，或者任何知道怎么测定长度的Python 对象使用这个方法（也就是说，有 __len__() 方法的对象）
+{% endcomment %}
+{{ bio|truncatewords:"30" }}
+
+</body>
+</html>
