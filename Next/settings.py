@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # To include the app in our project, we need to add a reference to its configuration class in the INSTALLED_APPS
     # setting.
     'polls.apps.PollsConfig',
+    'book.apps.BookConfig',
 ]
 
 MIDDLEWARE = [
