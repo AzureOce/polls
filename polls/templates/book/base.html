@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+<h1>My helpful timestamp site</h1>
+{% block content %}{% endblock %}
+
+{% block footer %}
+    <hr>
+    <p>Thanks for visiting my site.</p>
+{% endblock %}
+
+{% comment %}
+ 我们使用一个以前已经见过的模板标签： {% block %} 。 所有的 {% block %} 标签告诉模板引擎，子模板可以重载这些部分。
+ 每个{% block %}标签所要做的是告诉模板引擎，该模板下的这一块内容将有可能被子模板覆盖。
+{% endcomment %}
+</body>
+</html>

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% comment %}
+如果在模板中使用 {% extends %} ，必须保证其为模板中的第一个模板标记。 否则，模板继承将不起作用。
+如果发觉自己在多个模板之间拷贝代码，你应该考虑将该代码段放置到父模板的某个 {% block %} 中。
+
+如果你需要访问父模板中的块的内容，使用 {{ block.super }}这个标签吧，这一个魔法变量将会表现出父模板中的内容。 如果只想在上级代码块基础上添加内容
+，而不是全部重载，该变量就显得非常有用了。
+
+{% extends %} 对所传入模板名称使用的加载方法和 get_template() 相同。 也就是说，会将模板名称被添加到 TEMPLATE_DIRS 设置之后。
+
+多数情况下， {% extends %} 的参数应该是字符串，但是如果直到运行时方能确定父模板名，这个参数也可以是个变量。 这使得你能够实现一些很酷的动态功能。
+
+{% endcomment %}
+{% block title %}Future time{% endblock %}
+
+
+{% block content %}
+    <p>In {{ hour_offset }} hour(s), it will be {{ next_time }}.</p>
+{% endblock %}
