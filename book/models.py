@@ -14,11 +14,11 @@ class Publisher(models.Model):
 class Author(models.Model):
     first_name = models.CharField(max_length=60)
     last_name = models.CharField(max_length=60)
-    email = models.EmailField()
+    email = models.EmailField(blank=True)
 
 
 class Book(models.Model):
     title = models.CharField(max_length=80)
     authors = models.ManyToManyField(Author)
     publisher = models.ForeignKey(Publisher)
-    publish_date = models.DateField()
+    publish_date = models.DateField(verbose_name='pub-date')

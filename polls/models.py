@@ -7,8 +7,8 @@ from django.utils import timezone
 
 # Create your models here.
 class Question(models.Model):
-    question_text = models.CharField(max_length=200)
-    pub_date = models.DateTimeField('date published')
+    question_text = models.CharField(verbose_name="问题描述", max_length=200)
+    pub_date = models.DateTimeField('发布日期')
 
     def __str__(self):
         return self.question_text
